@@ -20,6 +20,7 @@ namespace Auto_API_REST.Controllers
             myCars.Add(new Car(0002, "Renegade", "Jeep", 370, 250, 320, 60));
             myCars.Add(new Car(0003, "Cavallier", "Bugatti", 310, 300, 450, 100));
             myCars.Add(new Car(0004, "Patriot", "Ford", 400, 230, 250, 40));
+            myCars.Add(new Car(0005, "Gallardo", "Lamborghini", 380, 400, 550, 110));
             return myCars;
         }
 
