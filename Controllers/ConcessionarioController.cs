@@ -13,9 +13,12 @@ namespace Auto_API_REST.Controllers
 
         // GET: api/CarDealer
         [HttpGet]
-        public ActionResult<IEnumerable<CarDealer>> Get()
+        public List<Car> Get()
         {
-            return carDealers;
+            List<Car> Supra = new List<Car>();
+            Supra.Add(new Car(0001, "Toyota", 350, 200, 250, 55));
+
+            return Supra;
         }
 
         // GET api/CarDealer/5

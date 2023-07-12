@@ -17,7 +17,7 @@
         public double MaxSpeed { get; set; }
         public int Displacement { get; set; }
 
-        public Car (int id, string brand, double weight, double speed, double maxSpeed, int displacement)
+        public Car(int id, string brand, double weight, double speed, double maxSpeed, int displacement)
         {
             Id = id;
             Brand = brand;
