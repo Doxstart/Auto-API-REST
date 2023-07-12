@@ -15,10 +15,12 @@ namespace Auto_API_REST.Controllers
         [HttpGet]
         public List<Car> Get()
         {
-            List<Car> Supra = new List<Car>();
-            Supra.Add(new Car(0001, "Toyota", 350, 200, 250, 55));
-
-            return Supra;
+            List<Car> myCars = new List<Car>();
+            myCars.Add(new Car(0001, "Supra", "Toyota", 350, 200, 250, 55));
+            myCars.Add(new Car(0002, "Renegade", "Jeep", 370, 250, 320, 60));
+            myCars.Add(new Car(0003, "Cavallier", "Bugatti", 310, 300, 450, 100));
+            myCars.Add(new Car(0004, "Patriot", "Ford", 400, 230, 250, 40));
+            return myCars;
         }
 
         // GET api/CarDealer/5
