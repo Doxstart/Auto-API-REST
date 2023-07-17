@@ -4,7 +4,12 @@
     {
 
         public int DealerId { get; set; }
-        public List<Car>? ListofCars { get; set; }
+        public List<Car> ListofCars { get; set; }
+
+        public CarDealer(int dealerId, List<Car> listofcars) {
+            DealerId = dealerId;
+            ListofCars = listofcars;
+        }
 
     }
 
