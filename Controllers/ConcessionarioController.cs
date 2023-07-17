@@ -16,11 +16,11 @@ namespace Auto_API_REST.Controllers
         public List<Car> Get()
         {
             List<Car> myCars = new List<Car>();
-            myCars.Add(new Car(0001, "Supra", "Toyota", 350, 200, 250, 55));
-            myCars.Add(new Car(0002, "Renegade", "Jeep", 370, 250, 320, 60));
-            myCars.Add(new Car(0003, "Cavallier", "Bugatti", 310, 300, 450, 100));
-            myCars.Add(new Car(0004, "Patriot", "Ford", 400, 230, 250, 40));
-            myCars.Add(new Car(0005, "Gallardo", "Lamborghini", 380, 400, 550, 110));
+            myCars.Add(new Car(1, "AB001DZ", "Supra", "Toyota", 350, 200, 250, 55));
+            myCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
+            myCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100));
+            myCars.Add(new Car(4, "AB004DZ", "Patriot", "Ford", 400, 230, 250, 40));
+            myCars.Add(new Car(5, "AB005DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
             return myCars;
         }
 

@@ -11,6 +11,7 @@
     public class Car
     {
         public int Id { get; set; }
+        public string Plate { get; set; }
         public string Name { get; set; }
         public string Brand { get; set; }
         public double Weight { get; set; }
@@ -18,9 +19,10 @@
         public double MaxSpeed { get; set; }
         public int Displacement { get; set; }
 
-        public Car(int id, string name, string brand, double weight, double speed, double maxSpeed, int displacement)
+        public Car(int id, string plate, string name, string brand, double weight, double speed, double maxSpeed, int displacement)
         {
             Id = id;
+            Plate = plate;
             Name = name;
             Brand = brand;
             Weight = weight;
