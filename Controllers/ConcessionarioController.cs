@@ -12,17 +12,13 @@ namespace Auto_API_REST.Controllers
     {
         public static List<CarDealer> carDealers = new List<CarDealer>();
 
-        // GET: api/CarDealer
-        [HttpGet]
-        public ActionResult<IEnumerable<CarDealer>> Get()
+        private List<CarDealer> GenCarDealers()
         {
             List<Car> myCars = new List<Car>();
-            List<Car> XCars = new List<Car>();  
-            List<Car> ZCars = new List<Car>();  
+            List<Car> XCars = new List<Car>();
+            List<Car> ZCars = new List<Car>();
             List<Car> NCars = new List<Car>();
             List<Car> SCars = new List<Car>();
-
-            List<CarDealer> carDealers = new List<CarDealer>();
 
             myCars.Add(new Car(1, "AB001DZ", "Supra", "Toyota", 350, 200, 250, 55));
             XCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
@@ -30,20 +26,20 @@ namespace Auto_API_REST.Controllers
             NCars.Add(new Car(4, "AB004DZ", "Patriot", "Ford", 400, 230, 250, 40));
             SCars.Add(new Car(5, "AB005DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
 
-            CarDealer Concs1 = new CarDealer(1, myCars);
-            CarDealer Concs2 = new CarDealer(2, XCars);
-            CarDealer Concs3 = new CarDealer(3, ZCars);
-            CarDealer Concs4 = new CarDealer(4, NCars);
-            CarDealer Concs5 = new CarDealer(5, SCars);
+            List<CarDealer> carDealers = new List<CarDealer>();
 
-            carDealers.Add(Concs1);
-            carDealers.Add(Concs2);
-            carDealers.Add(Concs3);
-            carDealers.Add(Concs4);
-            carDealers.Add(Concs5); 
+            carDealers.Add(new CarDealer(1, myCars));
+            carDealers.Add(new CarDealer(2, XCars));
+            carDealers.Add(new CarDealer(3, ZCars));
+            carDealers.Add(new CarDealer(4, NCars));
+            carDealers.Add(new CarDealer(5, SCars));
 
             return carDealers;
         }
+
+        // GET: api/CarDealer
+        [HttpGet]
+        public ActionResult<IEnumerable<CarDealer>> Get() => GenCarDealers();
 
         // GET api/CarDealer/5
         [HttpGet("{id}")]
