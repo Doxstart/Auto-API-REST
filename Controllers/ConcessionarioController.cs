@@ -42,15 +42,16 @@ namespace Auto_API_REST.Controllers
         public ActionResult<IEnumerable<CarDealer>> Get() => GenCarDealers();
 
         // GET api/CarDealer/5
-        [HttpGet("{id}")]
-        public ActionResult<CarDealer> Get(int id)
+        [HttpGet("{dealerId}")]
+        public ActionResult<CarDealer> Get(int dealerId)
         {
-            var carDealer = carDealers.FirstOrDefault(d => d.DealerId == id);
+            List<CarDealer> carDealers = GenCarDealers();
+            CarDealer carDealer = carDealers.FirstOrDefault(d => d.DealerId == dealerId);
             if (carDealer == null)
             {
                 return NotFound();
             }
-            return carDealer;
+            return Ok(carDealer);
         }
 
         // POST api/CarDealer
@@ -68,19 +69,31 @@ namespace Auto_API_REST.Controllers
         }
 
         // DELETE api/CarDealer/5
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        [HttpDelete("{dealerId}")]
+        public ActionResult Delete(int dealerId)
         {
-            foreach (var carDealer in carDealers)
-            {
-                var carToRemove = carDealer.ListofCars?.FirstOrDefault(car => car.Id == id);
+            //List<CarDealer> carDealers = GenCarDealers();
+            //foreach (var carDealer in carDealers)
+            //{
+            //    var carToRemove = carDealer.ListofCars?.FirstOrDefault(car => car.Id == id);
 
-                if (carToRemove != null)
-                {
-                    carDealer.ListofCars?.Remove(carToRemove);
-                    return NoContent();
-                }
+            //    if (carToRemove != null)
+            //    {
+            //        carDealer.ListofCars?.Remove(carToRemove);
+            //        return NoContent();
+            //    }
+            //}
+            //return NotFound();
+            List<CarDealer> carDealers = GenCarDealers();
+
+            CarDealer dealer = carDealers.FirstOrDefault(d => d.DealerId == dealerId);
+
+            if (dealer != null)
+            {
+                carDealers.Remove(dealer);
+                return Ok();
             }
+
             return NotFound();
         }
     }
