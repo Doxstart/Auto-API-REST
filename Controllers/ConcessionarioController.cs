@@ -17,16 +17,30 @@ namespace Auto_API_REST.Controllers
         public ActionResult<IEnumerable<CarDealer>> Get()
         {
             List<Car> myCars = new List<Car>();
+            List<Car> XCars = new List<Car>();  
+            List<Car> ZCars = new List<Car>();  
+            List<Car> NCars = new List<Car>();
+            List<Car> SCars = new List<Car>();
+
             List<CarDealer> carDealers = new List<CarDealer>();
 
             myCars.Add(new Car(1, "AB001DZ", "Supra", "Toyota", 350, 200, 250, 55));
-            myCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
-            myCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100));
-            myCars.Add(new Car(4, "AB004DZ", "Patriot", "Ford", 400, 230, 250, 40));
-            myCars.Add(new Car(5, "AB005DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
+            XCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
+            ZCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100));
+            NCars.Add(new Car(4, "AB004DZ", "Patriot", "Ford", 400, 230, 250, 40));
+            SCars.Add(new Car(5, "AB005DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
 
-            CarDealer ExCar = new CarDealer(1, myCars);
-            carDealers.Add(ExCar);
+            CarDealer Concs1 = new CarDealer(1, myCars);
+            CarDealer Concs2 = new CarDealer(2, XCars);
+            CarDealer Concs3 = new CarDealer(3, ZCars);
+            CarDealer Concs4 = new CarDealer(4, NCars);
+            CarDealer Concs5 = new CarDealer(5, SCars);
+
+            carDealers.Add(Concs1);
+            carDealers.Add(Concs2);
+            carDealers.Add(Concs3);
+            carDealers.Add(Concs4);
+            carDealers.Add(Concs5); 
 
             return carDealers;
         }
