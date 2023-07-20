@@ -26,8 +26,8 @@ namespace Auto_API_REST.Controllers
 
             List<CarDealer> carDealers = new List<CarDealer>();
 
-            carDealers.Add(new CarDealer(1, myCars));
-            carDealers.Add(new CarDealer(2, XCars));
+            carDealers.Add(new CarDealer(1,"SuperMacchine", myCars));
+            carDealers.Add(new CarDealer(2, "MonsterCars", XCars));
 
             return carDealers;
         }

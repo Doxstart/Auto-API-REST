@@ -4,10 +4,11 @@
     {
 
         public int DealerId { get; set; }
+        public string DealerName { get; set; }
         public List<Car> ListofCars { get; set; }
-
-        public CarDealer(int dealerId, List<Car> listofcars) {
+        public CarDealer(int dealerId, string dealerName, List<Car> listofcars) {
             DealerId = dealerId;
+            DealerName = dealerName;
             ListofCars = listofcars;
         }
 
