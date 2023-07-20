@@ -16,23 +16,18 @@ namespace Auto_API_REST.Controllers
         {
             List<Car> myCars = new List<Car>();
             List<Car> XCars = new List<Car>();
-            List<Car> ZCars = new List<Car>();
-            List<Car> NCars = new List<Car>();
-            List<Car> SCars = new List<Car>();
 
             myCars.Add(new Car(1, "AB001DZ", "Supra", "Toyota", 350, 200, 250, 55));
-            XCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
-            ZCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100));
-            NCars.Add(new Car(4, "AB004DZ", "Patriot", "Ford", 400, 230, 250, 40));
-            SCars.Add(new Car(5, "AB005DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
+            myCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
+            myCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100)); 
+            XCars.Add(new Car(3, "AB004DZ", "Forte", "Maseratti", 390, 310, 550, 120));
+            XCars.Add(new Car(4, "AB005DZ", "Patriot", "Ford", 400, 230, 250, 40));
+            XCars.Add(new Car(5, "AB006DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
 
             List<CarDealer> carDealers = new List<CarDealer>();
 
             carDealers.Add(new CarDealer(1, myCars));
             carDealers.Add(new CarDealer(2, XCars));
-            carDealers.Add(new CarDealer(3, ZCars));
-            carDealers.Add(new CarDealer(4, NCars));
-            carDealers.Add(new CarDealer(5, SCars));
 
             return carDealers;
         }
@@ -58,6 +53,7 @@ namespace Auto_API_REST.Controllers
         [HttpPost]
         public ActionResult<CarDealer> Post(CarDealer carDealer)
         {
+            List<CarDealer> carDealers = GenCarDealers();
             carDealers.Add(carDealer);
             return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId }, carDealer);
         }
