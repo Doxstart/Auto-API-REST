@@ -12,35 +12,34 @@ namespace Auto_API_REST.Controllers
     {
         public static List<CarDealer> carDealers = new List<CarDealer>();
 
-        private List<CarDealer> GenCarDealers()
-        {
-            List<Car> myCars = new List<Car>();
-            List<Car> XCars = new List<Car>();
+        //private List<CarDealer> GenCarDealers()
+        //{
+            //List<Car> myCars = new List<Car>();
+            //List<Car> XCars = new List<Car>();
 
-            myCars.Add(new Car(1, "AB001DZ", "Supra", "Toyota", 350, 200, 250, 55));
-            myCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
-            myCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100)); 
-            XCars.Add(new Car(3, "AB004DZ", "Forte", "Maseratti", 390, 310, 550, 120));
-            XCars.Add(new Car(4, "AB005DZ", "Patriot", "Ford", 400, 230, 250, 40));
-            XCars.Add(new Car(5, "AB006DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
+            //myCars.Add(new Car(1, "AB001DZ", "Supra", "Toyota", 350, 200, 250, 55));
+            //myCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
+            //myCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100)); 
+            //XCars.Add(new Car(3, "AB004DZ", "Forte", "Maseratti", 390, 310, 550, 120));
+            //XCars.Add(new Car(4, "AB005DZ", "Patriot", "Ford", 400, 230, 250, 40));
+            //XCars.Add(new Car(5, "AB006DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
 
-            List<CarDealer> carDealers = new List<CarDealer>();
+            //List<CarDealer> carDealers = new List<CarDealer>();
 
-            carDealers.Add(new CarDealer(1,"SuperMacchine", myCars));
-            carDealers.Add(new CarDealer(2, "MonsterCars", XCars));
+            //carDealers.Add(new CarDealer(1,"SuperMacchine", myCars));
+            //carDealers.Add(new CarDealer(2, "MonsterCars", XCars));
 
-            return carDealers;
-        }
+        //    return carDealers;
+        //}
 
         // GET: api/CarDealer
         [HttpGet]
-        public ActionResult<IEnumerable<CarDealer>> Get() => GenCarDealers();
+        public ActionResult<IEnumerable<CarDealer>> Get() => carDealers;
 
         // GET api/CarDealer/5
         [HttpGet("{dealerId}")]
         public ActionResult<CarDealer> Get(int dealerId)
         {
-            List<CarDealer> carDealers = GenCarDealers();
             CarDealer carDealer = carDealers.FirstOrDefault(d => d.DealerId == dealerId);
             if (carDealer == null)
             {
@@ -53,7 +52,6 @@ namespace Auto_API_REST.Controllers
         [HttpPost]
         public ActionResult<CarDealer> Post(CarDealer carDealer)
         {
-            List<CarDealer> carDealers = GenCarDealers();
             carDealers.Add(carDealer);
             return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId }, carDealer);
         }
@@ -65,32 +63,20 @@ namespace Auto_API_REST.Controllers
         }
 
         // DELETE api/CarDealer/5
-        [HttpDelete("{dealerId}")]
-        public ActionResult Delete(int dealerId)
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCarById(int id)
         {
-            //List<CarDealer> carDealers = GenCarDealers();
-            //foreach (var carDealer in carDealers)
-            //{
-            //    var carToRemove = carDealer.ListofCars?.FirstOrDefault(car => car.Id == id);
-
-            //    if (carToRemove != null)
-            //    {
-            //        carDealer.ListofCars?.Remove(carToRemove);
-            //        return NoContent();
-            //    }
-            //}
-            //return NotFound();
-            List<CarDealer> carDealers = GenCarDealers();
-
-            CarDealer dealer = carDealers.FirstOrDefault(d => d.DealerId == dealerId);
-
-            if (dealer != null)
+            foreach (var carDealer in carDealers)
             {
-                carDealers.Remove(dealer);
-                return Ok();
-            }
+                var carToRemove = carDealer.ListofCars?.FirstOrDefault(car => car.Id == id);
 
-            return NotFound();
+                if (carToRemove != null)
+                {
+                    carDealer.ListofCars?.Remove(carToRemove);
+                    return NoContent();
+                }
+            }
+            return Ok("Car Deleted!");
         }
     }
 }
