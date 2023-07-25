@@ -12,26 +12,6 @@ namespace Auto_API_REST.Controllers
     {
         public static List<CarDealer> carDealers = new List<CarDealer>();
 
-        //private List<CarDealer> GenCarDealers()
-        //{
-            //List<Car> myCars = new List<Car>();
-            //List<Car> XCars = new List<Car>();
-
-            //myCars.Add(new Car(1, "AB001DZ", "Supra", "Toyota", 350, 200, 250, 55));
-            //myCars.Add(new Car(2, "AB002DZ", "Renegade", "Jeep", 370, 250, 320, 60));
-            //myCars.Add(new Car(3, "AB003DZ", "Cavallier", "Bugatti", 310, 300, 450, 100)); 
-            //XCars.Add(new Car(3, "AB004DZ", "Forte", "Maseratti", 390, 310, 550, 120));
-            //XCars.Add(new Car(4, "AB005DZ", "Patriot", "Ford", 400, 230, 250, 40));
-            //XCars.Add(new Car(5, "AB006DZ", "Gallardo", "Lamborghini", 380, 400, 550, 110));
-
-            //List<CarDealer> carDealers = new List<CarDealer>();
-
-            //carDealers.Add(new CarDealer(1,"SuperMacchine", myCars));
-            //carDealers.Add(new CarDealer(2, "MonsterCars", XCars));
-
-        //    return carDealers;
-        //}
-
         // GET: api/CarDealer
         [HttpGet]
         public ActionResult<IEnumerable<CarDealer>> Get() => carDealers;
@@ -40,7 +20,7 @@ namespace Auto_API_REST.Controllers
         [HttpGet("{dealerId}")]
         public ActionResult<CarDealer> Get(int dealerId)
         {
-            CarDealer carDealer = carDealers.FirstOrDefault(d => d.DealerId == dealerId);
+            var carDealer = carDealers.FirstOrDefault(d => d.DealerId == dealerId);
             if (carDealer == null)
             {
                 return NotFound();
@@ -57,17 +37,17 @@ namespace Auto_API_REST.Controllers
         }
 
         [HttpPost("{dealerId}")]
-        public string CreateCar(int id, [FromBody] Car car)
+        public IActionResult CreateCar(int id, [FromBody] Car car)
         {
             var carDealer = carDealers.FirstOrDefault(c => c.DealerId == id);
             if (carDealer == null)
             {
-                return "Not Found!";
+                return BadRequest();
             }
 
             carDealer.ListofCars.Add(car);
 
-            return "Car Added!";
+            return Ok("Car Added!");
         }
 
         [HttpPut]
@@ -93,8 +73,8 @@ namespace Auto_API_REST.Controllers
             {
                 var carToUpdate = carDealer.ListofCars.FirstOrDefault(car => car.Id == CarId);
 
-                if (carToUpdate != null)
-                {
+                if (carToUpdate == null) throw new Exception("Id doesn't exist");
+
                     carToUpdate.Id = updatedCar.Id;
                     carToUpdate.Plate = updatedCar.Plate;
                     carToUpdate.Name = updatedCar.Name;
@@ -102,15 +82,14 @@ namespace Auto_API_REST.Controllers
                     carToUpdate.Speed = updatedCar.Speed;
                     carToUpdate.MaxSpeed = updatedCar.MaxSpeed;
                     carToUpdate.Displacement = updatedCar.Displacement;
-                    return Ok("Car attributes updated successfully.");
-                }
+
             }
-            return NotFound("Car not found.");
+            return Ok();
         }
 
         // DELETE api/CarDealer/5
         [HttpDelete("{CarId}")]
-        public ActionResult DeleteCarById(int CarId)
+        public ActionResult Delete(int CarId)
         {
             foreach (var carDealer in carDealers)
             {
