@@ -56,10 +56,56 @@ namespace Auto_API_REST.Controllers
             return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId }, carDealer);
         }
 
+        [HttpPost("{dealerId}")]
+        public string CreateCar(int id, [FromBody] Car car)
+        {
+            var carDealer = carDealers.FirstOrDefault(c => c.DealerId == id);
+            if (carDealer == null)
+            {
+                return "Not Found!";
+            }
+
+            carDealer.ListofCars.Add(car);
+
+            return "Car Added!";
+        }
+
+        [HttpPut]
+        public ActionResult<CarDealer> Put(int id, CarDealer updatedCarDealer)
+        {
+            var carDealer = carDealers.FirstOrDefault(d => d.DealerId == id);
+            if (carDealer == null)
+            {
+                return NotFound();
+            }
+
+            carDealer.DealerId = updatedCarDealer.DealerId;
+            carDealer.DealerName = updatedCarDealer.DealerName;
+
+            return carDealer;
+        }
+
         // PUT api/<ConcessionarioController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult EditCar(int id, [FromBody] Car updatedCar)
         {
+            foreach (var carDealer in carDealers)
+            {
+                var carToUpdate = carDealer.ListofCars.FirstOrDefault(car => car.Id == id);
+
+                if (carToUpdate != null)
+                {
+                    carToUpdate.Id = updatedCar.Id;
+                    carToUpdate.Plate = updatedCar.Plate;
+                    carToUpdate.Name = updatedCar.Name;
+                    carToUpdate.Brand = updatedCar.Brand;
+                    carToUpdate.Speed = updatedCar.Speed;
+                    carToUpdate.MaxSpeed = updatedCar.MaxSpeed;
+                    carToUpdate.Displacement = updatedCar.Displacement;
+                    return Ok("Car attributes updated successfully.");
+                }
+            }
+            return NotFound("Car not found.");
         }
 
         // DELETE api/CarDealer/5
@@ -76,7 +122,7 @@ namespace Auto_API_REST.Controllers
                     return NoContent();
                 }
             }
-            return Ok("Car Deleted!");
+            return Ok();
         }
     }
 }
