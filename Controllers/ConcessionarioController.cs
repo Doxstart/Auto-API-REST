@@ -81,6 +81,7 @@ namespace Auto_API_REST.Controllers
                     carToUpdate.Brand = updatedCar.Brand;
                     carToUpdate.Speed = updatedCar.Speed;
                     carToUpdate.MaxSpeed = updatedCar.MaxSpeed;
+                    carToUpdate.Weight = updatedCar.Weight;
                     carToUpdate.Displacement = updatedCar.Displacement;
 
             }
