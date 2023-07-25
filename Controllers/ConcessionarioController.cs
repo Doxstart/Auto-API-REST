@@ -86,12 +86,12 @@ namespace Auto_API_REST.Controllers
         }
 
         // PUT api/<ConcessionarioController>/5
-        [HttpPut("{id}")]
-        public IActionResult EditCar(int id, [FromBody] Car updatedCar)
+        [HttpPut("{CarId}")]
+        public IActionResult EditCar(int CarId, [FromBody] Car updatedCar)
         {
             foreach (var carDealer in carDealers)
             {
-                var carToUpdate = carDealer.ListofCars.FirstOrDefault(car => car.Id == id);
+                var carToUpdate = carDealer.ListofCars.FirstOrDefault(car => car.Id == CarId);
 
                 if (carToUpdate != null)
                 {
@@ -109,12 +109,12 @@ namespace Auto_API_REST.Controllers
         }
 
         // DELETE api/CarDealer/5
-        [HttpDelete("{id}")]
-        public ActionResult DeleteCarById(int id)
+        [HttpDelete("{CarId}")]
+        public ActionResult DeleteCarById(int CarId)
         {
             foreach (var carDealer in carDealers)
             {
-                var carToRemove = carDealer.ListofCars?.FirstOrDefault(car => car.Id == id);
+                var carToRemove = carDealer.ListofCars?.FirstOrDefault(car => car.Id == CarId);
 
                 if (carToRemove != null)
                 {
