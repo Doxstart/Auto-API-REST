@@ -25,7 +25,7 @@ namespace Auto_API_REST.Controllers
                     string dealerName = recordData[1];
                     List<Car> listofCars = new List<Car>();
 
-                    for (int i = 2; i < recordData.Length; i += 8)
+                    for (int i = 4; i < recordData.Length; i += 8)
                     {
                         int id = Convert.ToInt32(recordData[i]);
                         string plate = recordData[i + 1];
