@@ -107,7 +107,7 @@ namespace Auto_API_REST.Controllers
             }
 
             carDealer.ListofCars.Add(car);
-
+            WriteRecords();
             return Ok("Car Added!");
         }
 
