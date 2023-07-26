@@ -130,12 +130,14 @@ namespace Auto_API_REST.Controllers
         [HttpPut("{CarId}")]
         public IActionResult EditCar(int CarId, [FromBody] Car updatedCar)
         {
+            bool carFound = false;
+
             foreach (var carDealer in carDealers)
             {
                 var carToUpdate = carDealer.ListofCars.FirstOrDefault(car => car.Id == CarId);
 
-                if (carToUpdate == null) throw new Exception("Id doesn't exist");
-
+                if (carToUpdate != null)
+                {
                     carToUpdate.Id = updatedCar.Id;
                     carToUpdate.Plate = updatedCar.Plate;
                     carToUpdate.Name = updatedCar.Name;
@@ -145,7 +147,19 @@ namespace Auto_API_REST.Controllers
                     carToUpdate.Weight = updatedCar.Weight;
                     carToUpdate.Displacement = updatedCar.Displacement;
 
+                    carFound = true;
+                    break;
+                }
+
             }
+
+                if (!carFound)
+                {
+                    throw new Exception("Id doesn't exist");
+                }
+
+                WriteRecords();
+                    
             return Ok();
         }
 
