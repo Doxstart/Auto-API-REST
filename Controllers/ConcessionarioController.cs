@@ -11,10 +11,70 @@ namespace Auto_API_REST.Controllers
     public class ConcessionarioController : ControllerBase
     {
         public static List<CarDealer> carDealers = new List<CarDealer>();
+        private static string filePath = "data.txt";
+
+        private static void ReadRecords()
+        {
+            if (System.IO.File.Exists(filePath))
+            {
+                string[] lines = System.IO.File.ReadAllLines(filePath);
+                foreach (string line in lines)
+                {
+                    string[] recordData = line.Split(";");
+                    int dealerId = Convert.ToInt32(recordData[0]);
+                    string dealerName = recordData[1];
+                    List<Car> listofCars = new List<Car>();
+
+                    for (int i = 2; i < recordData.Length; i += 8)
+                    {
+                        int id = Convert.ToInt32(recordData[i]);
+                        string plate = recordData[i + 1];
+                        string name = recordData[i + 2];
+                        string brand = recordData[i + 3];
+                        int weight = Convert.ToInt32(recordData[i + 4]);
+                        int speed = Convert.ToInt32(recordData[i + 5]);
+                        int maxSpeed = Convert.ToInt32(recordData[i + 6]);
+                        double displacement = Convert.ToDouble(recordData[i + 7]);
+
+                        Car car = new Car(id, plate, name, brand, weight, speed, maxSpeed, displacement);
+
+                        listofCars.Add(car);
+                    }
+
+                    CarDealer carDealer = new CarDealer(dealerId, dealerName, listofCars);
+
+                    carDealers.Add(carDealer);
+                }
+            }
+        }
+
+        private static void WriteRecords()
+        {
+            List<string> lines = new List<string>();
+            foreach (CarDealer carDealer in carDealers)
+            {
+                string recordData = $"{carDealer.DealerId};{carDealer.DealerName}";
+                foreach (Car car in carDealer.ListofCars)
+                {
+                    recordData += $";{car.Id};{car.Plate};{car.Name};{car.Brand};{car.Speed};{car.MaxSpeed};{car.Weight}{car.Displacement}";
+                }
+
+                lines.Add(recordData);
+            }
+            System.IO.File.WriteAllLines(filePath, lines);
+        }
 
         // GET: api/CarDealer
         [HttpGet]
-        public ActionResult<IEnumerable<CarDealer>> Get() => carDealers;
+        public ActionResult<IEnumerable<CarDealer>> Get()
+        {
+            carDealers = new List<CarDealer>();
+            //CODICE PER READ FILE
+            ReadRecords();
+            //FINE CODICE READ FILE
+            return carDealers;
+        }    
+            
 
         // GET api/CarDealer/5
         [HttpGet("{dealerId}")]
@@ -25,7 +85,7 @@ namespace Auto_API_REST.Controllers
             {
                 return NotFound();
             }
-            return Ok(carDealer);
+            return carDealer;
         }
 
         // POST api/CarDealer
@@ -33,7 +93,7 @@ namespace Auto_API_REST.Controllers
         public ActionResult<CarDealer> Post(CarDealer carDealer)
         {
             carDealers.Add(carDealer);
-            return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId }, carDealer);
+            return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId, name = carDealer.DealerName }, carDealer);
         }
 
         [HttpPost("{dealerId}")]
