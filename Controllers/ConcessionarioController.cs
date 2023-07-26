@@ -112,18 +112,18 @@ namespace Auto_API_REST.Controllers
         }
 
         [HttpPut]
-        public ActionResult<CarDealer> Put(int id, CarDealer updatedCarDealer)
+        public ActionResult<CarDealer> EditDealer(int id, [FromBody] CarDealer updatedCarDealer)
         {
             var carDealer = carDealers.FirstOrDefault(d => d.DealerId == id);
-            if (carDealer == null)
-            {
-                return NotFound();
-            }
+
+            if (carDealer == null) throw new Exception("CarDealer doesn't exist");
 
             carDealer.DealerId = updatedCarDealer.DealerId;
             carDealer.DealerName = updatedCarDealer.DealerName;
 
-            return carDealer;
+            WriteRecords();
+
+            return Ok("CarDealer Successfully edited!");
         }
 
         // PUT api/<ConcessionarioController>/5
