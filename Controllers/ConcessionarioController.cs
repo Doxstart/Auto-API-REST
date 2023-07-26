@@ -31,10 +31,10 @@ namespace Auto_API_REST.Controllers
                         string plate = recordData[i + 1];
                         string name = recordData[i + 2];
                         string brand = recordData[i + 3];
-                        int weight = Convert.ToInt32(recordData[i + 4]);
-                        int speed = Convert.ToInt32(recordData[i + 5]);
-                        int maxSpeed = Convert.ToInt32(recordData[i + 6]);
-                        int displacement = Convert.ToInt32(recordData[i + 7]);
+                        double weight = Convert.ToDouble(recordData[i + 4]);
+                        double speed = Convert.ToDouble(recordData[i + 5]);
+                        double maxSpeed = Convert.ToDouble(recordData[i + 6]);
+                        double displacement = Convert.ToDouble(recordData[i + 7]);
 
                         Car car = new Car(id, plate, name, brand, weight, speed, maxSpeed, displacement);
 
