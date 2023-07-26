@@ -93,7 +93,8 @@ namespace Auto_API_REST.Controllers
         public ActionResult<CarDealer> Post(CarDealer carDealer)
         {
             carDealers.Add(carDealer);
-            return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId, name = carDealer.DealerName }, carDealer);
+            WriteRecords();
+            return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId }, carDealer);
         }
 
         [HttpPost("{dealerId}")]
