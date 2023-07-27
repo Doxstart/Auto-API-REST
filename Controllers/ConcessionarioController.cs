@@ -2,8 +2,6 @@
 using Auto_API_REST;
 using Microsoft.OpenApi.Any;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Auto_API_REST.Controllers
 {
     [Route("api/[controller]")]
@@ -69,9 +67,9 @@ namespace Auto_API_REST.Controllers
         public ActionResult<IEnumerable<CarDealer>> Get()
         {
             carDealers = new List<CarDealer>();
-            //CODICE PER READ FILE
+
             ReadRecords();
-            //FINE CODICE READ FILE
+
             return carDealers;
         }    
             
