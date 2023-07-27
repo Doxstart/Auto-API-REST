@@ -25,7 +25,7 @@ namespace Auto_API_REST.Controllers
                     string dealerName = recordData[1];
                     List<Car> listofCars = new List<Car>();
 
-                    for (int i = 4; i < recordData.Length; i += 8)
+                    for (int i = 2; i < recordData.Length; i += 8)
                     {
                         int id = Convert.ToInt32(recordData[i]);
                         string plate = recordData[i + 1];
@@ -56,7 +56,7 @@ namespace Auto_API_REST.Controllers
                 string recordData = $"{carDealer.DealerId};{carDealer.DealerName}";
                 foreach (Car car in carDealer.ListofCars)
                 {
-                    recordData += $";{car.Id};{car.Plate};{car.Name};{car.Brand};{car.Speed};{car.MaxSpeed};{car.Weight}{car.Displacement}";
+                    recordData += $";{car.Id};{car.Plate};{car.Name};{car.Brand};{car.Weight};{car.Speed};{car.MaxSpeed};{car.Displacement}";
                 }
 
                 lines.Add(recordData);
@@ -97,7 +97,7 @@ namespace Auto_API_REST.Controllers
             return CreatedAtAction(nameof(Get), new { id = carDealer.DealerId }, carDealer);
         }
 
-        [HttpPost("{dealerId}")]
+        [HttpPost("{id}")]
         public IActionResult CreateCar(int id, [FromBody] Car car)
         {
             var carDealer = carDealers.FirstOrDefault(c => c.DealerId == id);
@@ -108,7 +108,7 @@ namespace Auto_API_REST.Controllers
 
             carDealer.ListofCars.Add(car);
             WriteRecords();
-            return Ok("Car Added!");
+            return Ok();
         }
 
         [HttpPut]
@@ -123,7 +123,7 @@ namespace Auto_API_REST.Controllers
 
             WriteRecords();
 
-            return Ok("CarDealer Successfully edited!");
+            return Ok();
         }
 
         // PUT api/<ConcessionarioController>/5
@@ -169,16 +169,16 @@ namespace Auto_API_REST.Controllers
         {
             foreach (var carDealer in carDealers)
             {
-                var carToRemove = carDealer.ListofCars?.FirstOrDefault(car => car.Id == CarId);
+                var carToRemove = carDealer.ListofCars.FirstOrDefault(car => car.Id == CarId);
 
                 if (carToRemove != null)
                 {
-                    carDealer.ListofCars?.Remove(carToRemove);
+                    carDealer.ListofCars.Remove(carToRemove);
                     WriteRecords();
                     return NoContent();
                 }
             }
-            return Ok("Car successfully deleted!");
+            return Ok();
         }
     }
 }
