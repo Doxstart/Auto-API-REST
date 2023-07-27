@@ -1,4 +1,2 @@
-0;Pazzo Cars;150;DDDDDD;AASSSS;CULO;111;555;888;666
-69;Cicco Cars
-0;Segha Cars
-66;Jing Cars
+1;Luxury Cars;1;AX001DF;Renegade;Jeep;370;250;400;20;2;BZ002SD;Cavallier;Bugatti;310;300;500;110;3;CS050XP;Gallardo;Lamborghini;290;450;650;150
+2;Monster Cars;4;ZE269PO;Supra;Toyota;210;270;450;70;5;QW396RT;Patriot;Ford;300;180;340;90;6;KJ999HM;Forte;Kia;340;280;360;60
