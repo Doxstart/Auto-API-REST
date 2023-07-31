@@ -163,7 +163,7 @@ namespace Auto_API_REST.Controllers
 
         // DELETE api/CarDealer/5
         [HttpDelete("{CarId}")]
-        public ActionResult Delete(int CarId)
+        public ActionResult DeleteCars(int CarId)
         {
             foreach (var carDealer in carDealers)
             {
@@ -178,5 +178,20 @@ namespace Auto_API_REST.Controllers
             }
             return Ok();
         }
+
+        [HttpDelete("Dealers/{dealerId}")]
+        public ActionResult DeleteDealer(int dealerId)
+        {
+            var carDealerToRemove = carDealers.FirstOrDefault(d => d.DealerId == dealerId);
+
+            if (carDealerToRemove != null)
+            {
+                carDealers.Remove(carDealerToRemove);
+                WriteRecords();
+                return NoContent();
+            }
+            return Ok();
+        }
+
     }
 }
